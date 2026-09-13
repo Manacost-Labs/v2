@@ -6,7 +6,7 @@ canonical public site. The first iteration is deliberately read-only.
 
 ## Boundaries
 
-- `services/web-v2` owns rendering, routes, components, tokens and the public
+- This repository owns rendering, routes, components, tokens and the public
   WordPress response adapter.
 - `https://hs-manacost.ru/wp-json/wp/v2` is the only content source. The app
   sends GET requests only and uses no WordPress credentials.
@@ -32,7 +32,7 @@ headers only after validation.
 
 Deployment is split into reviewable actions:
 
-1. Merge an exact clean SHA to `origin/main` after `make web-v2-check` and review;
+1. Merge an exact clean SHA to `origin/main` after `npm run check` and review;
    the release script fetches and requires that exact remote revision.
 2. Provision the dedicated user/directories and install the reviewed systemd
    unit; do not restart unrelated services.
@@ -50,12 +50,12 @@ restart only that unit. Removing the v2 vhost/DNS does not change WordPress.
 ## Local development
 
 ```bash
-npm ci --prefix services/web-v2 --ignore-scripts
-npm run dev --prefix services/web-v2
+npm ci --ignore-scripts
+npm run dev
 ```
 
 Override the content source only with a reviewed public URL:
 
 ```bash
-WORDPRESS_API_URL=https://hs-manacost.ru/wp-json/wp/v2 npm run dev --prefix services/web-v2
+WORDPRESS_API_URL=https://hs-manacost.ru/wp-json/wp/v2 npm run dev
 ```

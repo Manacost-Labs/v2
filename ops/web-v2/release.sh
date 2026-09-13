@@ -18,7 +18,7 @@ root="$(git rev-parse --show-toplevel)"
   echo 'Exact clean source SHA required.' >&2
   exit 1
 }
-git -C "$root" cat-file -e "$sha:services/web-v2/package-lock.json"
+git -C "$root" cat-file -e "$sha:package-lock.json"
 git -C "$root" fetch --quiet --no-tags origin main
 [[ "$(git -C "$root" rev-parse refs/remotes/origin/main)" == "$sha" ]] || {
   echo 'Only the fetched origin/main SHA can be released.' >&2
@@ -43,7 +43,7 @@ echo "Validated v2 candidate $sha"
 if [[ "$apply" != true ]]; then echo 'Dry run: no changes.'; exit 0; fi
 
 install -d -o hs-manacost-v2 -g hs-manacost-v2 -m 0750 "$build"
-git -C "$root" archive "$sha:services/web-v2" | tar -x -C "$build"
+git -C "$root" archive "$sha" | tar -x -C "$build"
 chown -R hs-manacost-v2:hs-manacost-v2 "$build"
 install -d -o hs-manacost-v2 -g hs-manacost-v2 -m 0700 "$build/.home" "$build/.npm-cache"
 runuser -u hs-manacost-v2 -- env \
