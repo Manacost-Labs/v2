@@ -14,6 +14,10 @@ canonical public site. The first iteration is deliberately read-only.
   boundaries. Auth, profiles, comments, views, analytics and writes are absent.
 - WordPress HTML is allowlist-sanitized before rendering. Script, event-handler,
   advertising/paywall fragments and unsafe protocols are removed.
+- Core WordPress galleries, captions, tables and allowlisted video embeds are
+  rendered from REST output. Known presentation shortcodes are normalized;
+  inline `panelVIP` content is removed fail-closed and unsupported data widgets
+  receive a non-executable fallback instead of running WordPress/plugin code.
 - Every response carries `X-Robots-Tag: noindex, nofollow, noarchive`; metadata
   is noindex and `/robots.txt` disallows the entire host.
 - `wordpress/**`, `services/reader/**`, production theme assignments, database,
