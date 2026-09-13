@@ -9,6 +9,8 @@ The existing WordPress installation remains the editorial CMS and canonical cont
 - No authentication, VIP, comments, analytics, or WordPress writes.
 - VIP category and inline paywall content are excluded.
 - WordPress HTML is sanitized before rendering; media requests use a strict origin allowlist.
+- Rendered WordPress galleries, captions, tables and allowlisted video embeds have responsive frontend styles.
+- Residual legacy shortcodes are normalized through a small allowlist; arbitrary WordPress shortcode code is never executed.
 - The entire V2 host is `noindex, nofollow` while it remains experimental.
 
 See [the architecture contract](docs/architecture/headless-v2.md) for runtime, deployment, and rollback details.
